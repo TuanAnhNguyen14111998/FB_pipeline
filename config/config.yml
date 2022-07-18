@@ -1,0 +1,8 @@
+weight_chest_cls: weights/Chest_cls/experiments/chest-notchest-20200919-053837/best_model.pth
+yml_config_chest_cls: weights/Chest_cls/experiments/chest-notchest-20200916-055044/chest_multi_class_42K.yml
+weight_lung_segmentation: weights/Lung_segment/checkpoint/SE_checkpoint_889
+weight_bone_segmentation: weights/bone_segmentation/se_enet_bxr_clavicles.pth
+
+path_dataset: /vinbrain/anhng/FBL/FBL_pipeline/CxrFeedbackLoop/data_test/data_2021_2022/full_data_2021_2022.csv
+path_save_result: result/test_rule_new_part2.csv
+

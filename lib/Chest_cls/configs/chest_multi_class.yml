@@ -1,0 +1,52 @@
+name: "chest-notchest"        # name of this experiment. Used for comet-ml too
+tags: ['standard', 'training']  # for comet-ml
+gpu_id: '0'                     # must set as a string, empty means using CPU
+seed: 50
+
+model_params:       # params for generating the S-Net model
+  img_size: 224
+  crop_size: 224
+  backbone: 'densenet121'
+  pretrained: true
+  pretrained_file: 'experiments/pretrained/densenet121-a639ec97.pth'
+  bb_freeze: false
+  labels: [0, 1, 2, 3]
+  conv_fc: true
+  fc_bn: true
+  norm_type: 'BatchNorm'
+  global_pool: 'AVG'
+  mish: false
+  attention_map: None
+  embedded_gcn: false
+  wildcat: false
+  use_se: false
+  fc_drop: 0.0
+  lse_gamma: 10.0
+  lamb: 1
+  #  params for preprocessing the input image
+  imagenet: true
+  n_crops: 0
+  augmix: false
+
+train_params:
+  dataset_dir: '/u01/soanduong/00-data/01-chest-classification'
+  train_txtfiles: 'data/chest_multi_class/train.txt'  # textfiles containing the file paths of images for training
+  val_txtfiles: 'data/chest_multi_class/val.txt'      # textfiles containing the file paths of images for validating
+  test_txtfiles: 'data/chest_multi_class/test.txt'    # textfiles containing the file paths of images for testing
+  n_cutoff_imgs: ''
+  train_batch_size: 64
+  infer_batch_size: 32
+  initial_epoch: 0
+  n_epochs: 50
+  num_workers: 8
+  early_stop: 5
+  threshold: 0.5    # threshold value for binary classification
+
+
+optimizer:
+  type: Adam
+  args:
+    lr: 0.0001
+
+loss: CrossEntropyLoss  #  NLLLoss CrossEntropyLoss
+

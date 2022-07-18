@@ -1,0 +1,56 @@
+name: "chest-notchest"        # name of this experiment. Used for comet-ml too
+tags: ['standard', 'training']  # for comet-ml
+gpu_id: '0'                     # must set as a string, empty means using CPU
+seed: 50
+
+model_params:       # params for generating the S-Net model
+  img_size: 224
+  crop_size: 224
+  backbone: 'densenet121'
+  pretrained: true
+  pretrained_file: 'experiments/pretrained/densenet121-a639ec97.pth'
+  bb_freeze: false
+  labels: [0, 1]
+  conv_fc: true
+  fc_bn: true
+  norm_type: 'BatchNorm'
+  global_pool: 'AVG'
+  mish: false
+  attention_map: None
+  embedded_gcn: false
+  wildcat: false
+  use_se: false
+  fc_drop: 0.0
+  lse_gamma: 10.0
+  lamb: 1
+  #  params for preprocessing the input image
+  imagenet: true
+  n_crops: 0
+  augmix: false
+
+train_params:
+#  dataset_dir: '/u01/data/chest_or_nonchest'
+#  train_txtfiles: 'data/train.txt'  # textfiles containing the file paths of images for training
+#  val_txtfiles: 'data/val.txt'      # textfiles containing the file paths of images for validating
+#  test_txtfiles: 'data/test.txt'    # textfiles containing the file paths of images for testing
+  dataset_dir: '../../00-data/chest_xray_pneumonia_children/train'
+  train_txtfiles: 'data/t1.txt'
+  val_txtfiles: 'data/t2.txt'
+  test_txtfiles: 'data/t3.txt'
+  n_cutoff_imgs: ''
+  train_batch_size: 2
+  infer_batch_size: 1
+  initial_epoch: 0
+  n_epochs: 2
+  num_workers: 2
+  early_stop: 20
+  threshold: 0.5    # threshold value for binary classification
+
+
+optimizer:
+  type: Adam
+  args:
+    lr: 0.0001
+
+loss: BCELogLossV2  # CrossEntropyLoss NLLLoss
+
